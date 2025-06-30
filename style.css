@@ -473,6 +473,16 @@ input[type="text"] {
   object-fit: cover;
   z-index: -1; /* sends it behind other elements */
 }
+#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1; /* keep it behind everything */
+  pointer-events: none; /* disables any play button tap */
+}
 
 
 
