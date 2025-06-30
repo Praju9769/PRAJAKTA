@@ -93,13 +93,16 @@
   </style>
 </head>
 <body>
-<video autoplay muted loop id="bgVideo" playsinline></video>
+<video autoplay muted loop id="bgVideo">
   <source src="yourvideo.mp4" type="video/mp4" />
 </video>
   <header>
     <h1>Prajakta Shinde 💖</h1>
     <p>Real, Rare, and Unapologetically Me.</p>
-  </header>
+  </header>  
+<audio id="bgMusic" autoplay loop>
+  <source src="softvibe.mp3" type="audio/mpeg">
+</audio>
 
   <section class="card">
   <h2>💫 My Aesthetic World</h2>
@@ -185,11 +188,10 @@
     draw();
 
     // Ensure music plays after user interaction
-   window.addEventListener('click', () => {
-  const music = document.getElementById('bgMusic');
-  music.play().catch(e => console.log(e));
-}, { once: true });
-
+    window.addEventListener('click', () => {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(e => console.log(e));
+    }, { once: true });
   </script>
 </body>
 </html>
