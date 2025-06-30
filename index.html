@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prajakta Shinde</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.5s, color 0.5s;
+      background: #fff0f5;
+      color: #222;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 80px 20px 20px;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #ff69b4;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #777;
+      font-weight: 500;
+    }
+    .card {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(255,105,180,0.2);
+    }
+    .card h2 {
+      text-align: center;
+      color: #d10072;
+      font-size: 1.6rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,105,180,0.3);
+      transition: transform 0.4s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .instagram {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+    .instagram a {
+      color: #ff1493;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .quote, .now-playing, .visitor-counter, .floating-words {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .quote p {
+      font-style: italic;
+      color: #999;
+    }
+    .floating-words span {
+      position: absolute;
+      animation: floatWord 20s infinite;
+      font-size: 0.9rem;
+      opacity: 0.3;
+    }
+    @keyframes floatWord {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-200px); }
+    }
+    canvas {
+      display: block;
+      margin: 40px auto 0;
+    }
+  </style>
+</head>
+<body>
+<video autoplay muted loop id="bgVideo">
+  <source src="yourvideo.mp4" type="video/mp4" />
+</video>
+  <header>
+    <h1>Prajakta Shinde 💖</h1>
+    <p>Real, Rare, and Unapologetically Me.</p>
+  </header>
+
+  <section class="card">
+  <h2>💫 My Aesthetic World</h2>
+  <div class="gallery">
+    <img src="pic1.jpg" alt="mirror selfie set" />
+    <img src="pic5.jpg" alt="coffee fix vibes" />
+    <img src="pic3.jpg" alt="foodie flex" />
+    <img src="pic4.jpg" alt="sunset reset" />
+    <img src="pic6.jpg" alt="chill cam" />
+    <img src="pic7.jpg" alt="smirk mood" />
+    <img src="pic8.jpg" alt="raw unfiltered" />
+    <img src="pic9.jpg" alt="no thoughts just vibes" />
+  </div>
+</section>
+  <div class="floating-text">✨ fun! hahahha! Always Evolving. ✨</div>
+
+  <section class="card">
+  <h2>🎥 My Vibe in Motion</h2>
+   <video class="aesthetic-video" playsinline onclick="this.play()">
+  <source src="myvideo.mp4" type="video/mp4">
+  Your browser doesn’t support video playback.
+  </video>
+</section>
+
+
+  <div class="instagram">
+    <a href="https://www.instagram.com/prajakta1?igsh=MTdmN3JiNXhheDEzMw==&utm_source=qr" target="_blank">💗 Follow me @_prajakta1_</a>
+  </div>
+  
+  <div class="energy-status">
+  <p>☁️ current vibe: floating between dreams and reality</p>
+  <p>💭 thoughts: too divine to decode</p>
+  <p>🎧 playing: softvibe.mp3</p>
+  </div>
+  <canvas id="visualizer" width="600" height="80"></canvas>
+
+  <audio id="bgMusic" autoplay loop>
+   <source src="softvibe.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const floatingWords = ["soft chaos", "golden hour", "divine feminine", "energy unmatched", "angel mode"];
+    floatingWords.forEach(text => {
+      const span = document.createElement("span");
+      span.innerText = text;
+      span.style.left = Math.random() * 100 + "vw";
+      span.style.top = Math.random() * 100 + "vh";
+      span.style.animationDuration = 20 + Math.random() * 10 + "s";
+      span.className = "floating-words";
+      document.body.appendChild(span);
+    });
+
+    // Visualizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const audioElement = document.getElementById("bgMusic");
+    const source = audioCtx.createMediaElementSource(audioElement);
+    const analyser = audioCtx.createAnalyser();
+    const canvas = document.getElementById("visualizer");
+    const canvasCtx = canvas.getContext("2d");
+
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    analyser.fftSize = 64;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw() {
+      requestAnimationFrame(draw);
+      analyser.getByteFrequencyData(dataArray);
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const barWidth = (canvas.width / bufferLength) * 2.5;
+      let x = 0;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i];
+        canvasCtx.fillStyle = "#ff69b4";
+        canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+        x += barWidth + 1;
+      }
+    }
+    draw();
+
+    // Ensure music plays after user interaction
+   window.addEventListener('click', () => {
+    const music = document.getElementById('bgMusic');
+    music.play().catch(e => console.log(e));
+   }, { once: true });
+
+  </script>
+</body>
+</html>
